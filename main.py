@@ -18,7 +18,7 @@ def main():
     messages = [types.Content(role="user", parts=[types.Part(text=args.user_prompt)])]
 
     client=genai.Client(api_key=api_key)
-    response = client.models.generate_content(model='gemini-2.5-flash', contents=messages) #This is a GenerateContentResponse object
+    response = client.models.generate_content(model='gemini-flash-lite-latest', contents=messages) #This is a GenerateContentResponse object
     if args.verbose:
         if response.usage_metadata:
             print("User prompt: ", args.user_prompt)

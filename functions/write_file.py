@@ -1,4 +1,5 @@
 import os
+import google.genai.types as types
 def write_file(working_directory, file_path, content):
     working_dir_path = os.path.abspath(working_directory)
     target_file_path = os.path.normpath(os.path.join(working_dir_path, file_path))
@@ -17,4 +18,22 @@ def write_file(working_directory, file_path, content):
     except Exception as err:
         error = "Error: " + str(err)
         return error
-    
+
+schema_write_file = types.FunctionDeclaration(
+    name="write_file",
+    description="Writes specified content to a file at a given path relative to the working directory, creating any necessary directories and ensuring the target path is valid and not a directory itself",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="File path to write content to, relative to the working directory",
+            ),
+            "content": types.Schema(
+                type=types.Type.STRING,
+                description="The content to write to the specified file",
+            ),
+        },
+        required=["file_path", "content"],
+    ),
+)
